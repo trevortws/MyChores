@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#280b90d9</color>
+    <color name="red">#ff6464</color>
+    <color name="green">#90fd90</color>
+    <color name="background">#fafafa</color>
+    <color name="listbg">#1789ffff</color>
+    <color name="newitembg">#9ffd8183</color>
+    <color name="border">#494c4a</color>
+    <color name="itemtabcolor">#009cde</color>
+    <color name="itemtabtext">#595959</color>
+</resources>

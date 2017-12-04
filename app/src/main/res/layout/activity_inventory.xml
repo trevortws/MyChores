@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mychores.Inventory">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inventoery_add_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Item's Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="15dp" />
+
+            <Button
+                android:id="@+id/inventory_addbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:text="Add" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/inventory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="horizontal|vertical"
+            android:numColumns="3"
+            android:padding="15dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

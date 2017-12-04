@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "506006243207",
+    "firebase_url": "https://mychores-fcf97.firebaseio.com",
+    "project_id": "mychores-fcf97",
+    "storage_bucket": "mychores-fcf97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506006243207:android:e299bcd04b4b259a",
+        "android_client_info": {
+          "package_name": "com.example.mychores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506006243207-396cmdbh6d8vr47pl3epsigs9ob0racv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mychores",
+            "certificate_hash": "92c5919221ca0fb678c5e212780d372e0e8811a8"
+          }
+        },
+        {
+          "client_id": "506006243207-ijrds397ql0pu1qa69jb6iddfjjkikhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQvi2r_YgIBgE8ODSOo15H8SPEizW1l4g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506006243207-ijrds397ql0pu1qa69jb6iddfjjkikhe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

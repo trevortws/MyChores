@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/comfirm_delete_dialog"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/delete_confirm"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/red"
+            android:text="Confirm"
+            android:textColor="@color/background"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/delete_cancel"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="cancel"
+            android:textSize="12sp" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

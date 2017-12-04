@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MyChores</string>
+    <string name="tab_text_1">Shopping List</string>
+    <string name="tab_text_2">Tasks</string>
+    <string name="tab_text_3">People</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_inventory">Inventory</string>
+    <string name="taskdetail_requirment">Requirement Items</string>
+    <string name="taskdetail_notes">Notes</string>
+    <string name="taskdetail_paragraph">to day is a sunny day take lily out for a walk.</string>
+    <string name="createtask">Create New Tasks</string>
+    <string name="submitbutton">Submit</string>
+    <string name="comfirm_delete_dialog"><u><b>Warning</b></u>\nConfirm delete?\nDeleting this will not give Points!</string>
+    <string name="assign_user_default">Assign User</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="taskstatus_reg">Status: Regular</string>
+    <string name="taskstatus_urg">Status: Urgent</string>
+
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>

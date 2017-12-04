@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mychores.CreateTask">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="92dp">
+
+        <TextView
+            android:id="@+id/createtask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:paddingTop="15dp"
+            android:text="@string/createtask"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/new_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Task Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/new_avg_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Average Time  ( hrs : mins)"
+            android:inputType="time" />
+
+        <EditText
+            android:id="@+id/new_describtion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Describtion"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/assign_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/assign_user_default" />
+
+
+        <TextView
+            android:id="@+id/itemname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Items needed"
+            android:textColor="@color/itemtabcolor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/itemlist"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:choiceMode="multipleChoice"
+            android:numColumns="2"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
+
+        <ToggleButton
+            android:id="@+id/new_status"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/statusbutton"
+            android:text="ToggleButton"
+            android:textOff="@string/taskstatus_reg"
+            android:textOn="@string/taskstatus_urg"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/new_duedate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:text=" Pick A Due Date"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/new_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submitbutton" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
