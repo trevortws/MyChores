@@ -25,8 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class TaskDetail extends AppCompatActivity {
-    FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-    DatabaseReference database_task= mDatabase.getReference("Task");
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference database_task = mDatabase.getReference("Task");
     TextView name;
     TextView describiton;
     TextView avgtime;
@@ -37,38 +37,39 @@ public class TaskDetail extends AppCompatActivity {
     TextView assignedPerson;
     Task task;
     GridView itemlist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taskdetail);
-        name=findViewById(R.id.taskdetail_name);
-        describiton=findViewById(R.id.taskdetail_notes) ;
-        avgtime=findViewById(R.id.avg_time);
-        creator=findViewById(R.id.creator_name);
-        duedate=findViewById(R.id.due_date);
-        icon= findViewById(R.id.taskdetail_icon);
-        status=findViewById(R.id.taskdetail_status);
-        itemlist=findViewById(R.id.taskitemlist);
-        assignedPerson=findViewById(R.id.assigned_person);
-        Bundle bundle=getIntent().getExtras();
-        if (bundle!=null){
+        name = findViewById(R.id.taskdetail_name);
+        describiton = findViewById(R.id.taskdetail_notes);
+        avgtime = findViewById(R.id.avg_time);
+        creator = findViewById(R.id.creator_name);
+        duedate = findViewById(R.id.due_date);
+        icon = findViewById(R.id.taskdetail_icon);
+        status = findViewById(R.id.taskdetail_status);
+        itemlist = findViewById(R.id.taskitemlist);
+        assignedPerson = findViewById(R.id.assigned_person);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
             final String dbid = bundle.getString("Task");
             database_task.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    task =dataSnapshot.child(dbid).getValue(Task.class);
+                    task = dataSnapshot.child(dbid).getValue(Task.class);
                     name.setText(task.getTaskName());
                     describiton.setText(task.getTaskDescribtion());
-                    creator.setText("Creator: "+task.getCreator());
+                    creator.setText("Creator: " + task.getCreator());
                     avgtime.setText(task.getAvgTime());
                     duedate.setText(task.getDue_date());
                     icon.setImageResource(task.getTaskIcon());
-                    assignedPerson.setText("Assigned User: " +task.getAssigned_person());
+                    assignedPerson.setText("Assigned User: " + task.getAssigned_person());
                     status.setText(task.getStatus());
-                    if (task.getStatus().equals("Status: Urgent")){
+                    if (task.getStatus().equals("Status: Urgent")) {
                         status.setTextColor(Color.parseColor("#f44268"));
                     }
-                    InventoryAdapter adapter = new InventoryAdapter(TaskDetail.this,task.getItems_needed());
+                    InventoryAdapter adapter = new InventoryAdapter(TaskDetail.this, task.getItems_needed());
 
                     itemlist.setAdapter(adapter);
 
@@ -81,65 +82,61 @@ public class TaskDetail extends AppCompatActivity {
             });
 
 
-
         }
 
 
-        ImageButton editTask=findViewById(R.id.edit_task);
-        editTask.setOnClickListener(new View.OnClickListener()   {
-            public void onClick(View v)  {
-                String dbid=task.getDb_ID();
+        ImageButton editTask = findViewById(R.id.edit_task);
+        editTask.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String dbid = task.getDb_ID();
                 Intent intent = new Intent(TaskDetail.this, CreateTask.class);
-                intent.putExtra("Task",dbid);
+                intent.putExtra("Task", dbid);
                 startActivity(intent);
             }
         });
-        ImageButton delete =findViewById(R.id.delete_task);
+        ImageButton delete = findViewById(R.id.delete_task);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AlertDialog.Builder confirmDialog=new AlertDialog.Builder(TaskDetail.this);
-            View dialog= getLayoutInflater().inflate(R.layout.confirm_delete,null);
-            confirmDialog.setView(dialog);
-            final AlertDialog mDialog=confirmDialog.create();
-            mDialog.show();
-            Button cancel=dialog.findViewById(R.id.delete_cancel);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mDialog.hide();
+                AlertDialog.Builder confirmDialog = new AlertDialog.Builder(TaskDetail.this);
+                View dialog = getLayoutInflater().inflate(R.layout.confirm_delete, null);
+                confirmDialog.setView(dialog);
+                final AlertDialog mDialog = confirmDialog.create();
+                mDialog.show();
+                Button cancel = dialog.findViewById(R.id.delete_cancel);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialog.hide();
 
-                }
-            });
-            Button confirm=dialog.findViewById(R.id.delete_confirm);
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                deleteData(task.getDb_ID());
-                }
-            });
+                    }
+                });
+                Button confirm = dialog.findViewById(R.id.delete_confirm);
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteData(task.getDb_ID());
+                    }
+                });
 
 
             }
-
-
 
 
         });
 
 
     }
-    public void deleteData(String dbid){
+
+    public void deleteData(String dbid) {
         database_task.child(dbid).removeValue();
         try {
             Intent intent = new Intent(TaskDetail.this, MainActivity.class);
             startActivity(intent);
-        }catch (NullPointerException e){
-            Toast.makeText(TaskDetail.this,"idk",Toast.LENGTH_LONG).show();
+        } catch (NullPointerException e) {
+            Toast.makeText(TaskDetail.this, "idk", Toast.LENGTH_LONG).show();
         }
     }
-
-
 
 
 }

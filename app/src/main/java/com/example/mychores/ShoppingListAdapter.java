@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ShoppingListAdapter extends BaseAdapter {
         private Context mContext;
         private ArrayList<ShoppingItem> itemsList;
-        LayoutInflater inflater;
+    LayoutInflater inflater;
         public ShoppingListAdapter(Context c,ArrayList<ShoppingItem> itemsList)
         {
             mContext = c;

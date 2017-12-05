@@ -27,7 +27,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class UserLogin  extends AppCompatActivity {
+public class UserLogin extends AppCompatActivity {
     EditText username;
     EditText password;
     Button login;
@@ -41,8 +41,8 @@ public class UserLogin  extends AppCompatActivity {
         setContentView(R.layout.user_login);
         username = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        login=findViewById(R.id.log_in);
-        newuser=findViewById(R.id.new_user);
+        login = findViewById(R.id.log_in);
+        newuser = findViewById(R.id.new_user);
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null)
@@ -51,11 +51,11 @@ public class UserLogin  extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(username.getText().toString())||TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(UserLogin.this,"Please fill in all required information",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
+                    Toast.makeText(UserLogin.this, "Please fill in all required information", Toast.LENGTH_SHORT).show();
+                } else {
+                    loginUser(username.getText().toString(), password.getText().toString());
                 }
-                else{
-                loginUser(username.getText().toString(),password.getText().toString());}
             }
         });
 
@@ -69,39 +69,40 @@ public class UserLogin  extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
-    private void loginUser(String email, String password){
+
+    private void loginUser(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
-            if (task.isSuccessful()) {
-                // Sign in success, update UI with the signed-in user's information
-                final String uid=mAuth.getCurrentUser().getUid();
-                FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-                DatabaseReference database_user= mDatabase.getReference("User");
-                database_user.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user=dataSnapshot.child(uid).getValue(User.class);
-                        String name= user.getFirstName();
-                        Toast.makeText(UserLogin.this, "Welcome Back "+name, Toast.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    final String uid = mAuth.getCurrentUser().getUid();
+                    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference database_user = mDatabase.getReference("User");
+                    database_user.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.child(uid).getValue(User.class);
+                            String name = user.getFirstName();
+                            Toast.makeText(UserLogin.this, "Welcome Back " + name, Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-                //Toast.makeText(UserLogin.this, "Welcome Back"+name, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UserLogin.this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                // If sign in fails, display a message to the user.
-                Toast.makeText(UserLogin.this, "E-mail or Password Incorrect", Toast.LENGTH_SHORT).show();
-            }
+                        }
+                    });
+                    //Toast.makeText(UserLogin.this, "Welcome Back"+name, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UserLogin.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(UserLogin.this, "E-mail or Password Incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

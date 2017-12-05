@@ -36,10 +36,10 @@ public class ShoppingItem {
         this.db_id = db_id;
     }
 
-    public ShoppingItem( String db_id, String itemName, int amount) {
+    public ShoppingItem(String db_id, String itemName, int amount) {
 
         this.itemName = itemName;
         this.amount = amount;
-        this.db_id=db_id;
+        this.db_id = db_id;
     }
 }

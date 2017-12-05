@@ -31,30 +31,31 @@ import java.util.ArrayList;
  */
 
 public class Tab3People extends Fragment {
-    ArrayList<User> UserList= new ArrayList<User>();
-    FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-    DatabaseReference database_user= mDatabase.getReference("User");
+    ArrayList<User> UserList = new ArrayList<User>();
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference database_user = mDatabase.getReference("User");
     TextView overdue_task;
     TextView currUserName;
     TextView score;
     ImageView currUserIcon;
     ListView userListView;
-    FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    final String currUid=mAuth.getCurrentUser().getUid();
-    int [] IconList ={
-        R.drawable.bunny,
-        R.drawable.cat,
-        R.drawable.cow,
-        R.drawable.dog,
-        R.drawable.monkey,
-        R.drawable.moose,
-        R.drawable.owl,
-        R.drawable.penguin,
-        R.drawable.polarbear,
-        R.drawable.seal,
-        R.drawable.wolf,
-        R.drawable.pig
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final String currUid = mAuth.getCurrentUser().getUid();
+    int[] IconList = {
+            R.drawable.bunny,
+            R.drawable.cat,
+            R.drawable.cow,
+            R.drawable.dog,
+            R.drawable.monkey,
+            R.drawable.moose,
+            R.drawable.owl,
+            R.drawable.penguin,
+            R.drawable.polarbear,
+            R.drawable.seal,
+            R.drawable.wolf,
+            R.drawable.pig
     };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +67,11 @@ public class Tab3People extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.tab3people, container, false);
-        userListView=rootView.findViewById(R.id.other_userlist);
-        OtherUserAdapter otherUserAdapter = new OtherUserAdapter(this.getActivity(),UserList);
+        userListView = rootView.findViewById(R.id.other_userlist);
+        OtherUserAdapter otherUserAdapter = new OtherUserAdapter(this.getActivity(), UserList);
         userListView.setAdapter(otherUserAdapter);
 
-        final ImageView userIcon= rootView.findViewById(R.id.userIcon);
+        final ImageView userIcon = rootView.findViewById(R.id.userIcon);
         userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,10 +80,10 @@ public class Tab3People extends Fragment {
                 View convertView = (View) inflater.inflate(R.layout.changeicon, null);
                 alertDialog.setView(convertView);
                 alertDialog.setTitle("Choose a Icon");
-                GridView icontable =  convertView.findViewById(R.id.icon_table);
-                final IconAdapter iconAdapter=new IconAdapter(Tab3People.this.getActivity(),IconList);
+                GridView icontable = convertView.findViewById(R.id.icon_table);
+                final IconAdapter iconAdapter = new IconAdapter(Tab3People.this.getActivity(), IconList);
                 icontable.setAdapter(iconAdapter);
-                final AlertDialog mDialog=alertDialog.create();
+                final AlertDialog mDialog = alertDialog.create();
                 mDialog.show();
                 icontable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -94,22 +95,22 @@ public class Tab3People extends Fragment {
 
             }
         });
-        overdue_task=rootView.findViewById(R.id.overDueTask);
+        overdue_task = rootView.findViewById(R.id.overDueTask);
         overdue_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Tab3People.this.getActivity(),"Feature Coming Soon",Toast.LENGTH_LONG).show();
+                Toast.makeText(Tab3People.this.getActivity(), "Feature Coming Soon", Toast.LENGTH_LONG).show();
             }
         });
-        currUserName=rootView.findViewById(R.id.UserName);
-        currUserIcon=rootView.findViewById(R.id.userIcon);
-        score=rootView.findViewById(R.id.userPoints);
+        currUserName = rootView.findViewById(R.id.UserName);
+        currUserIcon = rootView.findViewById(R.id.userIcon);
+        score = rootView.findViewById(R.id.userPoints);
         database_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user=dataSnapshot.child(currUid).getValue(User.class);
-                String name= user.getFirstName()+" "+user.getLastName();
-                int icon=user.getIcon();
+                User user = dataSnapshot.child(currUid).getValue(User.class);
+                String name = user.getFirstName() + " " + user.getLastName();
+                int icon = user.getIcon();
                 currUserIcon.setImageResource(icon);
                 currUserName.setText(name);
                 score.setText(Integer.toString(user.getScore()));
@@ -126,16 +127,16 @@ public class Tab3People extends Fragment {
 
     }
 
-    public void addUser(){
+    public void addUser() {
         database_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserList.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    User user= snapshot.getValue(User.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
                     UserList.add(user);
                 }
-                OtherUserAdapter otherUserAdapter = new OtherUserAdapter(Tab3People.this.getActivity(),UserList);
+                OtherUserAdapter otherUserAdapter = new OtherUserAdapter(Tab3People.this.getActivity(), UserList);
                 userListView.setAdapter(otherUserAdapter);
             }
 

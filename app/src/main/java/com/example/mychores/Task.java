@@ -19,25 +19,25 @@ public class Task {
     private List<Inventory_Item> items_needed;
 
 
-
-    public Task(){
+    public Task() {
 
     }
 
 
-    public Task( String id, String taskName, String taskDescribtion, int taskIcon, String avgTime, String creator, String due_date, String status, String assigned_person,List<Inventory_Item>items_needed) {
+    public Task(String id, String taskName, String taskDescribtion, int taskIcon, String avgTime, String creator, String due_date, String status, String assigned_person, List<Inventory_Item> items_needed) {
         this.taskName = taskName;
         this.taskDescribtion = taskDescribtion;
         this.taskIcon = taskIcon;
         this.avgTime = avgTime;
         this.creator = creator;
         this.due_date = due_date;
-        this.status=status;
-        this.assigned_person=assigned_person;
-        this.db_ID=id;
-        this.items_needed=items_needed;
+        this.status = status;
+        this.assigned_person = assigned_person;
+        this.db_ID = id;
+        this.items_needed = items_needed;
 
     }
+
     public String getDb_ID() {
         return db_ID;
     }
@@ -45,7 +45,8 @@ public class Task {
     public void setDb_ID(String db_ID) {
         this.db_ID = db_ID;
     }
-    public String getTaskName(){
+
+    public String getTaskName() {
         return taskName;
     }
 
@@ -53,10 +54,11 @@ public class Task {
         return status;
     }
 
-    public String getTaskDescribtion(){
+    public String getTaskDescribtion() {
         return taskDescribtion;
     }
-    public int getTaskIcon(){
+
+    public int getTaskIcon() {
         return taskIcon;
     }
 
@@ -68,7 +70,9 @@ public class Task {
         return due_date;
     }
 
-    public String getAvgTime() {return avgTime;}
+    public String getAvgTime() {
+        return avgTime;
+    }
 
     public String getAssigned_person() {
         return assigned_person;
@@ -78,7 +82,9 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public void setTaskDescribtion(String taskDescribtion) {this.taskDescribtion = taskDescribtion;}
+    public void setTaskDescribtion(String taskDescribtion) {
+        this.taskDescribtion = taskDescribtion;
+    }
 
     public void setTaskIcon(int taskIcon) {
         this.taskIcon = taskIcon;
@@ -96,10 +102,19 @@ public class Task {
         this.due_date = due_date;
     }
 
-    public void setStatus(String status) {this.status = status;}
-    public List<Inventory_Item> getItems_needed() {return items_needed;}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    public void setItems_needed(List<Inventory_Item> items_needed) {this.items_needed = items_needed;}
+    public List<Inventory_Item> getItems_needed() {
+        return items_needed;
+    }
 
-    public void setAssigned_person(String assigned_person) {this.assigned_person = assigned_person;}
+    public void setItems_needed(List<Inventory_Item> items_needed) {
+        this.items_needed = items_needed;
+    }
+
+    public void setAssigned_person(String assigned_person) {
+        this.assigned_person = assigned_person;
+    }
 }

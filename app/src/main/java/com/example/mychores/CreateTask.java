@@ -63,16 +63,16 @@ public class CreateTask extends AppCompatActivity {
     ToggleButton status;
     Button assigned_person;
     Button submit;
-    ArrayList<String> userList=new ArrayList<>();
-    private FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-    DatabaseReference database_task= mDatabase.getReference("Task");
-    DatabaseReference database_inventory= mDatabase.getReference("Inventory");
-    DatabaseReference database_user=mDatabase.getReference("User");
+    ArrayList<String> userList = new ArrayList<>();
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference database_task = mDatabase.getReference("Task");
+    DatabaseReference database_inventory = mDatabase.getReference("Inventory");
+    DatabaseReference database_user = mDatabase.getReference("User");
     Task task;
-    List<Inventory_Item> invItems=new ArrayList<>();
-    List<Inventory_Item>item_add_todb=new ArrayList<>();
+    List<Inventory_Item> invItems = new ArrayList<>();
+    List<Inventory_Item> item_add_todb = new ArrayList<>();
     GridView itemlist;
-    FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String currentUserName;
     String uid;
 
@@ -82,23 +82,23 @@ public class CreateTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
         mDisplayDate = (TextView) findViewById(R.id.new_duedate);
-        function= findViewById(R.id.createtask);
-        name= findViewById(R.id.new_name);
-        describtion= findViewById(R.id.new_describtion);
-        avgtime=findViewById(R.id.new_avg_time);
-        status= findViewById(R.id.new_status);
-        assigned_person=findViewById(R.id.assign_user);
-        submit=findViewById(R.id.new_submit);
-        itemlist=findViewById(R.id.itemlist);
+        function = findViewById(R.id.createtask);
+        name = findViewById(R.id.new_name);
+        describtion = findViewById(R.id.new_describtion);
+        avgtime = findViewById(R.id.new_avg_time);
+        status = findViewById(R.id.new_status);
+        assigned_person = findViewById(R.id.assign_user);
+        submit = findViewById(R.id.new_submit);
+        itemlist = findViewById(R.id.itemlist);
         addUser();
-        Bundle bundle=getIntent().getExtras();
-        uid=mAuth.getCurrentUser().getUid();
+        Bundle bundle = getIntent().getExtras();
+        uid = mAuth.getCurrentUser().getUid();
         database_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user=dataSnapshot.child(uid).getValue(User.class);
-                String name= user.getFirstName();
-                currentUserName=name;
+                User user = dataSnapshot.child(uid).getValue(User.class);
+                String name = user.getFirstName();
+                currentUserName = name;
             }
 
             @Override
@@ -107,8 +107,8 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
-        if (bundle!=null){
-            final String dbid= bundle.getString("Task");
+        if (bundle != null) {
+            final String dbid = bundle.getString("Task");
             database_task.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,11 +116,11 @@ public class CreateTask extends AppCompatActivity {
                     name.setText(task.getTaskName());
                     describtion.setText(task.getTaskDescribtion());
                     mDisplayDate.setText(task.getDue_date());
-                    if (task.getStatus().equals("Status: Urgent")){
+                    if (task.getStatus().equals("Status: Urgent")) {
                         status.setChecked(true);
                     }
-                    assigned_person.setText("Assigned User: "+ task.getAssigned_person());
-                    assigned_person.setBackgroundColor(Color.argb(75,144,195,212));
+                    assigned_person.setText("Assigned User: " + task.getAssigned_person());
+                    assigned_person.setBackgroundColor(Color.argb(75, 144, 195, 212));
                 }
 
                 @Override
@@ -132,7 +132,6 @@ public class CreateTask extends AppCompatActivity {
 
 
         }
-
 
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +146,7 @@ public class CreateTask extends AppCompatActivity {
                         CreateTask.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         DateListner,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -162,7 +161,7 @@ public class CreateTask extends AppCompatActivity {
                 mDisplayDate.setText(date);
             }
         };
-        final Button assign_user=findViewById(R.id.assign_user);
+        final Button assign_user = findViewById(R.id.assign_user);
         assign_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,18 +171,16 @@ public class CreateTask extends AppCompatActivity {
                 alertDialog.setView(convertView);
                 alertDialog.setTitle("Choose a user");
                 ListView lv = convertView.findViewById(R.id.assign_user_dialog_list);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateTask.this,android.R.layout.simple_list_item_1, userList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateTask.this, android.R.layout.simple_list_item_1, userList);
                 lv.setAdapter(adapter);
-                final AlertDialog mDialog=alertDialog.create();
+                final AlertDialog mDialog = alertDialog.create();
 
                 mDialog.show();
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
-                {
-                    public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
-                    {
-                        String assigned_user= userList.get(position);
-                        assign_user.setText("Assigned User: "+assigned_user);
-                        assign_user.setBackgroundColor(Color.argb(75,144,195,212));
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                        String assigned_user = userList.get(position);
+                        assign_user.setText("Assigned User: " + assigned_user);
+                        assign_user.setBackgroundColor(Color.argb(75, 144, 195, 212));
                         mDialog.hide();
                     }
                 });
@@ -191,20 +188,18 @@ public class CreateTask extends AppCompatActivity {
             }
 
         });
-        Button edit_submit=findViewById(R.id.new_submit);
+        Button edit_submit = findViewById(R.id.new_submit);
         edit_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String id;
-                if(TextUtils.isEmpty(name.getText().toString())||TextUtils.isEmpty(assigned_person.getText().toString())){
-                    Toast.makeText(CreateTask.this,"Please enter task name and assign person",Toast.LENGTH_SHORT).show();
-                }
-                else if(!function.getText().toString().equals(getString(R.string.edit_task))) {
+                if (TextUtils.isEmpty(name.getText().toString()) || TextUtils.isEmpty(assigned_person.getText().toString())) {
+                    Toast.makeText(CreateTask.this, "Please enter task name and assign person", Toast.LENGTH_SHORT).show();
+                } else if (!function.getText().toString().equals(getString(R.string.edit_task))) {
                     id = database_task.push().getKey();
                     dbsubmit(id);
-                }
-                else if(function.getText().toString().equals(getString(R.string.edit_task))){
-                    id=task.getDb_ID();
+                } else if (function.getText().toString().equals(getString(R.string.edit_task))) {
+                    id = task.getDb_ID();
                     dbsubmit(id);
                 }
             }
@@ -213,12 +208,12 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 invItems.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Inventory_Item item= snapshot.getValue(Inventory_Item.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Inventory_Item item = snapshot.getValue(Inventory_Item.class);
                     invItems.add(item);
 
                 }
-                CreateTaskItemAdapter adapter = new CreateTaskItemAdapter(CreateTask.this,invItems);
+                CreateTaskItemAdapter adapter = new CreateTaskItemAdapter(CreateTask.this, invItems);
 
                 itemlist.setAdapter(adapter);
             }
@@ -232,30 +227,17 @@ public class CreateTask extends AppCompatActivity {
                 new IntentFilter("custom-message"));
 
 
-
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    private  void addUser(){
+    private void addUser() {
         database_user.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userList.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    User db_user= snapshot.getValue(User.class);
-                    String username= db_user.getFirstName();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User db_user = snapshot.getValue(User.class);
+                    String username = db_user.getFirstName();
                     userList.add(username);
                 }
             }
@@ -266,60 +248,59 @@ public class CreateTask extends AppCompatActivity {
             }
         });
     }
-    private void dbsubmit(String id){
-        String desctibtionText=describtion.getText().toString();
-        String time=avgtime.getText().toString();
-        String due_date=mDisplayDate.getText().toString();
-        String assuser=assigned_person.getText().toString();
-        assuser=assuser.replace("Assigned User: ","");
+
+    private void dbsubmit(String id) {
+        String desctibtionText = describtion.getText().toString();
+        String time = avgtime.getText().toString();
+        String due_date = mDisplayDate.getText().toString();
+        String assuser = assigned_person.getText().toString();
+        assuser = assuser.replace("Assigned User: ", "");
         String assignusericon;
 
-        if(TextUtils.isEmpty(desctibtionText)) {
-            desctibtionText="null";
+        if (TextUtils.isEmpty(desctibtionText)) {
+            desctibtionText = "null";
         }
-        if(TextUtils.isEmpty(time)) {
-            time="#";
+        if (TextUtils.isEmpty(time)) {
+            time = "#";
         }
-        if(TextUtils.isEmpty(due_date)|| due_date.equals(" Pick A Due Date")) {
-            due_date="Not Specify";
+        if (TextUtils.isEmpty(due_date) || due_date.equals(" Pick A Due Date")) {
+            due_date = "Not Specify";
         }
-        if(item_add_todb.size()==0){
-            item_add_todb.add(new Inventory_Item("null","null"));
+        if (item_add_todb.size() == 0) {
+            item_add_todb.add(new Inventory_Item("null", "null"));
         }
-        String[] timesplit=time.split(":");
-        if (timesplit.length==2) {
-            due_date=timesplit[0] + "hr " + timesplit[1] + "mins";
+        String[] timesplit = time.split(":");
+        if (timesplit.length == 2) {
+            due_date = timesplit[0] + "hr " + timesplit[1] + "mins";
+
+        } else {
+            due_date = timesplit[0] + "mins";
 
         }
-        else{
-            due_date=timesplit[0] + "mins";
 
-        }
-
-        Task task = new Task(id, name.getText().toString(), desctibtionText, R.drawable.mopping, due_date, currentUserName, mDisplayDate.getText().toString(), status.getText().toString(), assuser,item_add_todb);
+        Task task = new Task(id, name.getText().toString(), desctibtionText, R.drawable.mopping, due_date, currentUserName, mDisplayDate.getText().toString(), status.getText().toString(), assuser, item_add_todb);
         database_task.child(id).setValue(task);
-        Intent intent=new Intent(CreateTask.this,MainActivity.class);
+        Intent intent = new Intent(CreateTask.this, MainActivity.class);
         startActivity(intent);
 
     }
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String name = intent.getStringExtra("name");
             final String dbid = intent.getStringExtra("dbid");
-            final Boolean status = intent.getBooleanExtra("status",false);
-            Inventory_Item adding_item= new Inventory_Item(dbid,name);
-            if(status){
+            final Boolean status = intent.getBooleanExtra("status", false);
+            Inventory_Item adding_item = new Inventory_Item(dbid, name);
+            if (status) {
                 item_add_todb.add(adding_item);
-            }
-            else{
+            } else {
                 item_add_todb.remove(adding_item);
             }
 
 
         }
     };
-
 
 
 }

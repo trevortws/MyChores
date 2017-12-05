@@ -30,14 +30,14 @@ public class CreateUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
-    DatabaseReference database_user= mDatabase.getReference("User");
+    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference database_user = mDatabase.getReference("User");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        function= findViewById(R.id.createuser);
+        function = findViewById(R.id.createuser);
         fName = findViewById(R.id.first_name);
         lName = findViewById(R.id.last_name);
         username = findViewById(R.id.username);
@@ -48,17 +48,16 @@ public class CreateUser extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(fName.getText().toString())||TextUtils.isEmpty(lName.getText().toString())||TextUtils.isEmpty(username.getText().toString())||TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(CreateUser.this,"Please fill in all required information",Toast.LENGTH_SHORT).show();
-                }
-                else if(function.getText().toString()!=getString(R.string.edit_task)) {
-                    signUpUser(username.getText().toString(),password.getText().toString());
+                if (TextUtils.isEmpty(fName.getText().toString()) || TextUtils.isEmpty(lName.getText().toString()) || TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())) {
+                    Toast.makeText(CreateUser.this, "Please fill in all required information", Toast.LENGTH_SHORT).show();
+                } else if (function.getText().toString() != getString(R.string.edit_task)) {
+                    signUpUser(username.getText().toString(), password.getText().toString());
                 }
             }
         });
     }
 
-    private void signUpUser(String email, String password){
+    private void signUpUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
@@ -66,11 +65,11 @@ public class CreateUser extends AppCompatActivity {
                     public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            String id =mAuth.getCurrentUser().getUid();
-                            User user= new User(id,fName.getText().toString(),lName.getText().toString(),0,R.drawable.monkey);
+                            String id = mAuth.getCurrentUser().getUid();
+                            User user = new User(id, fName.getText().toString(), lName.getText().toString(), 0, R.drawable.monkey);
                             database_user.child(id).setValue(user);
-                            Toast.makeText(CreateUser.this,"Welcome to MyChore "+user.getFirstName(),Toast.LENGTH_LONG).show();
-                            Intent intent=new Intent(CreateUser.this,UserLogin.class);
+                            Toast.makeText(CreateUser.this, "Welcome to MyChore " + user.getFirstName(), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(CreateUser.this, UserLogin.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.

@@ -20,24 +20,24 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        if (user!=null){
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        mViewPager.setCurrentItem(1);
-        }
-        else{
-            Intent intent1=new Intent(this,UserLogin.class);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+            mViewPager.setCurrentItem(1);
+        } else {
+            Intent intent1 = new Intent(this, UserLogin.class);
             startActivity(intent1);
 
         }
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.user:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent1=new Intent(this,UserLogin.class);
+                Intent intent1 = new Intent(this, UserLogin.class);
                 startActivity(intent1);
                 return true;
 
@@ -78,15 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
-                    Tab1ShoppingList tab1 =new Tab1ShoppingList();
+                    Tab1ShoppingList tab1 = new Tab1ShoppingList();
                     return tab1;
                 case 1:
-                    Tab2Tasks tab2=new Tab2Tasks();
+                    Tab2Tasks tab2 = new Tab2Tasks();
                     return tab2;
                 case 2:
-                    Tab3People tab3 =new Tab3People();
+                    Tab3People tab3 = new Tab3People();
                     return tab3;
                 default:
                     return null;
@@ -97,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return 3;
         }
+
         @Override
-        public CharSequence getPageTitle(int Position){
-            switch (Position){
+        public CharSequence getPageTitle(int Position) {
+            switch (Position) {
                 case 0:
                     return "ShoppingList";
                 case 1:

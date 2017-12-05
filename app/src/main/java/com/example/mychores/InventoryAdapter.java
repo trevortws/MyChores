@@ -25,6 +25,7 @@ public class InventoryAdapter extends ArrayAdapter<Inventory_Item> {
         this.mcontext = context;
         this.inventory_items = item;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (inflater == null) {
@@ -38,7 +39,7 @@ public class InventoryAdapter extends ArrayAdapter<Inventory_Item> {
             Inventory_Item item = inventory_items.get(position);
             textViewName.setText(item.getItemName());
         }
-            return convertView;
-        }
+        return convertView;
+    }
 
 }
